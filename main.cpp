@@ -3,6 +3,7 @@
 using namespace std;
 
 int linearSearch();
+int binarySearch();
 
 int main() {
     cout << "Hello World!";
@@ -11,6 +12,9 @@ int main() {
 
 int linearSearch(){
 
+}
+
+int binarySearch(){
 
 }
 
