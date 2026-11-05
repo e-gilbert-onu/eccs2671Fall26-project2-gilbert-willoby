@@ -6,16 +6,18 @@ using namespace std;
 
 int linearSearch(vector<int>& arr, int x);
 int binarySearch(vector<int> &arr, int x);
+void fillVec(vector<int>& arr);
 
-int vecSize = 10;
-int range = 3*vecSize
+int vecSize = 20;
+int range = 3*vecSize;
 
 //main -- 
 /*Fill each array with random integers, with new values for every run. The values must be in the range [−3n, 3n], where n
 *is the array size. For example, an array of size 100 holds values from −300 to 300. */
 int main() {
 //Fill array/vector
-std::vector<int> vec(vecSize)
+std::vector<int> vec(vecSize);
+fillVec(vec);
 
 
 }
@@ -28,25 +30,21 @@ void fillVec(vector<int>& arr){
     //set ranges
     std::uniform_int_distribution<> dis(-range, range);
 
-    for(int i : arr){
-        i = dis(gen);
+    for (int& i : arr) {
+    i = dis(gen);
     }
 
-    for(int i = 0; i > arr.size(); i++){
-        cout << arr[i] << "," << endl;
+    for (int i = 0; i < static_cast<int>(arr.size()); i++) {
+    cout << arr[i] << ",";
     }
-
-
-
-
 
 }
 
 int linearSearch(vector<int>& arr, int x){
-
+    return 0;
 }
 
 int binarySearch(vector<int> &arr, int x){
-
+    return 0;
 }
 
