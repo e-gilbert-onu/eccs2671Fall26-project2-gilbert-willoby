@@ -2,19 +2,19 @@
 #include <algorithm>
 using namespace std;
 
-int linearSearch();
-int binarySearch();
+int linearSearch(vector<int>& arr, int x);
+int binarySearch(vector<int> &arr, int x);
 
 int main() {
     cout << "Hello World!";
     return 0;
 }
 
-int linearSearch(){
+int linearSearch(vector<int>& arr, int x){
 
 }
 
-int binarySearch(){
+int binarySearch(vector<int> &arr, int x){
 
 }
 
