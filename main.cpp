@@ -16,8 +16,8 @@ void binaryHeader();
 
 int vecSize = 1000000;
 int range = 3*vecSize;
-int linearComparisons = 0;
-int binaryComparisons = 0;
+int key = range + 1;
+
 
 //main -- 
 /*Fill each array with random integers, with new values for every run. The values must be in the range [−3n, 3n], where n
@@ -29,17 +29,18 @@ int main() {
 
     //Linear Search Final Output:
     linearHeader(); //header
+     
     for(int i = 1; i < 6;i++){ //runtime + avg calc
         std::vector<int> vec(vecSize);
         fillVec(vec);
         vec[vecSize-1] = 10;
-        int runTime = linearSearch(vec,10);
+        int runTime = linearSearch(vec, key);
         cout << "search time for run #"<< i << ": " << runTime << " us " << endl;
         linearTotal += runTime;
     }
     int linearAvg = linearTotal/5;
     cout << "average search time: " << linearAvg << " us "<< endl; //avg
-    cout << "# of comparisons made: " << linearComparisons << endl; //comparisons
+    cout << "# of comparisons made: " << endl; //comparisons
     cout << "******************************" << endl; //end
 
     cout << endl; //seperation
@@ -50,13 +51,13 @@ int main() {
         std::vector<int> vec(vecSize);
         fillVec(vec);
         vec[vecSize-1] = 10;
-        int runTime = binarySearch(vec,10);
+        int runTime = binarySearch(vec, key);
         cout << "search time for run #"<< i << ": " << runTime << " us " << endl;
         binaryTotal += runTime;
     }
     int binaryAvg = binaryTotal/5;
     cout << "average search time: " << binaryAvg << " us "<< endl; //avg
-    cout << "# of comparisons made: " << binaryComparisons << endl; //comparisons
+    cout << "# of comparisons made: " << endl; //comparisons
     cout << "******************************" << endl; //end
 
 }
@@ -118,7 +119,6 @@ int linearSearch(vector<int> &arr, int x){
     //cout << fixed << duration.count() << " us ";
 
     return duration.count();
-    // linearComparisons = ;
 
 }
 
@@ -158,7 +158,6 @@ int binarySearch(vector<int> &arr, int x){
     //cout << fixed << setprecision(3) << "binary duration = " << duration.count() << " us ";
 
     return duration.count();
-    // binaryComparisons = ;
 
 
 }
