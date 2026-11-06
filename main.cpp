@@ -11,22 +11,25 @@ using namespace std::chrono;
 int linearSearch(vector<int>& arr, int x);
 int binarySearch(vector<int> &arr, int x);
 void fillVec(vector<int>& arr);
-void linearOutput();
+void linearHeader();
+void binaryHeader();
 
 int vecSize = 1000000;
 int range = 3*vecSize;
 int linearComparisons = 0;
+int binaryComparisons = 0;
 
 //main -- 
 /*Fill each array with random integers, with new values for every run. The values must be in the range [−3n, 3n], where n
 *is the array size. For example, an array of size 100 holds values from −300 to 300. */
+
 int main() {
-    //Fill array/vector
-    int linearTotal = 0;
+    int linearTotal = 0; //initialize linear and binary total in order to calculate runtime averages.
+    int binaryTotal = 0;
 
     //Linear Search Final Output:
-    linearOutput();
-    for(int i = 1; i < 6;i++){
+    linearHeader(); //header
+    for(int i = 1; i < 6;i++){ //runtime + avg calc
         std::vector<int> vec(vecSize);
         fillVec(vec);
         vec[vecSize-1] = 10;
@@ -35,10 +38,26 @@ int main() {
         linearTotal += runTime;
     }
     int linearAvg = linearTotal/5;
-    cout << "average search time: " << linearAvg << " us "<< endl;
-    cout << "# of comparisons made: " << linearComparisons << endl;
-    cout << "******************************" << endl;
+    cout << "average search time: " << linearAvg << " us "<< endl; //avg
+    cout << "# of comparisons made: " << linearComparisons << endl; //comparisons
+    cout << "******************************" << endl; //end
 
+    cout << endl; //seperation
+
+    //Binary Search Final Output:
+    binaryHeader(); //header
+    for(int i = 1; i < 6;i++){ //runtime + avg calc
+        std::vector<int> vec(vecSize);
+        fillVec(vec);
+        vec[vecSize-1] = 10;
+        int runTime = binarySearch(vec,10);
+        cout << "search time for run #"<< i << ": " << runTime << " us " << endl;
+        binaryTotal += runTime;
+    }
+    int binaryAvg = binaryTotal/5;
+    cout << "average search time: " << binaryAvg << " us "<< endl; //avg
+    cout << "# of comparisons made: " << binaryComparisons << endl; //comparisons
+    cout << "******************************" << endl; //end
 
 }
 
@@ -62,10 +81,18 @@ void fillVec(vector<int>& arr){
 
 }
 
-void linearOutput(){
+void linearHeader(){
     // linear search output setup:
     cout << "******************************" << endl;
     cout << "Linear Search:" << endl;
+    cout << "-------------------" << endl;
+    cout << "Input Size = " << vecSize << endl;
+}
+
+void binaryHeader(){
+    // linear search output setup:
+    cout << "******************************" << endl;
+    cout << "Binary Search:" << endl;
     cout << "-------------------" << endl;
     cout << "Input Size = " << vecSize << endl;
 }
@@ -91,6 +118,7 @@ int linearSearch(vector<int> &arr, int x){
     //cout << fixed << duration.count() << " us ";
 
     return duration.count();
+    // linearComparisons = ;
 
 }
 
@@ -127,9 +155,10 @@ int binarySearch(vector<int> &arr, int x){
     auto end = high_resolution_clock::now();
 
     duration<double, std::micro> duration = (end - start);
-    cout << fixed << setprecision(3) << "binary duration = " << duration.count() << " us ";
+    //cout << fixed << setprecision(3) << "binary duration = " << duration.count() << " us ";
 
-    return result_index;
+    return duration.count();
+    // binaryComparisons = ;
 
 
 }
