@@ -1,53 +1,153 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <random>
 #include <chrono>
+#include <iomanip>
 
 using namespace std;
 using namespace std::chrono;
 
-int linearSearch(vector<int> &arr, int x);
-int binarySearch(vector<int> &arr, int x);
+int linearSearch(vector<int>& arr, int x, int& comparisons);
+int binarySearch(vector<int> &arr, int x, int& comparisons);
+void fillVec(vector<int>& arr);
+void linearHeader();
+void binaryHeader();
+
+int vecSize = 1000000;
+int range = 3*vecSize;
+int key = range + 1;
+
+
+//main -- 
+/*Fill each array with random integers, with new values for every run. The values must be in the range [−3n, 3n], where n
+*is the array size. For example, an array of size 100 holds values from −300 to 300. */
 
 int main() {
-    cout << "Hello World!";
-    return 0;
+    int linearTotal = 0; //initialize linear and binary total in order to calculate runtime averages.
+    int binaryTotal = 0;
+    int comparisons  = 0;
+
+    //Linear Search Final Output:
+    linearHeader(); //header
+     
+    for(int i = 1; i < 6;i++){ //runtime + avg calc
+        std::vector<int> vec(vecSize);
+        fillVec(vec);
+        vec[vecSize-1] = 10;
+        int runTime = linearSearch(vec, key);
+        cout << "search time for run #"<< i << ": " << runTime << " us " << endl;
+        linearTotal += runTime;
+    }
+    int linearAvg = linearTotal/5;
+    cout << "average search time: " << linearAvg << " us "<< endl; //avg
+    cout << "# of comparisons made: " << comparisons << endl; //comparisons
+    cout << "******************************" << endl; //end
+
+    cout << endl; //seperation
+
+    //Binary Search Final Output:
+    binaryHeader(); //header
+    for(int i = 1; i < 6;i++){ //runtime + avg calc
+        std::vector<int> vec(vecSize);
+        fillVec(vec);
+        vec[vecSize-1] = 10;
+        int runTime = binarySearch(vec, key);
+        cout << "search time for run #"<< i << ": " << runTime << " us " << endl;
+        binaryTotal += runTime;
+    }
+    int binaryAvg = binaryTotal/5;
+    cout << "average search time: " << binaryAvg << " us "<< endl; //avg
+    cout << "# of comparisons made: " << comparisons << endl; //comparisons
+    cout << "******************************" << endl; //end
+
 }
 
-int linearSearch(vector<int> &arr, int x){
+void fillVec(vector<int>& arr){
+    //seed random number generator
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    //set ranges
+    std::uniform_int_distribution<> dis(-range, range);
+
+    for (int& i : arr) {
+    i = dis(gen);
+    }
+
+    /*
+    for (int i = 0; i < static_cast<int>(arr.size()); i++) {
+    cout << arr[i] << ",";
+    } 
+    */
+
+}
+
+void linearHeader(){
+    // linear search output setup:
+    cout << "******************************" << endl;
+    cout << "Linear Search:" << endl;
+    cout << "-------------------" << endl;
+    cout << "Input Size = " << vecSize << endl;
+}
+
+void binaryHeader(){
+    // linear search output setup:
+    cout << "******************************" << endl;
+    cout << "Binary Search:" << endl;
+    cout << "-------------------" << endl;
+    cout << "Input Size = " << vecSize << endl;
+}
+
+int linearSearch(vector<int> &arr, int x, int& comparisons){
+
+    comparison = 0;
 
     int return_index = -1;
 
+    // Start of the timer
     auto start = high_resolution_clock::now();
 
+    // Loop to compare each element
     for(int i = 0; i < arr.size(); i++)
     {
+        comparisons++;
+
         if(arr[i] == x)
         //cout << i+1 << " comparisons" << endl;
         return_index = i;
+
     }
     //cout << arr.size(); << " comparisons" << endl;
 
+    // End timer
     auto end = high_resolution_clock::now();
 
-    auto duration = duration_cast<microseconds>(end - start);
-    cout << duration.count();
+    // Calculate total time
+    duration<double, std::micro> duration = (end - start);
+    //cout << fixed << duration.count() << " us ";
 
-    return return_index;;
+    return duration.count();
 
 }
 
-int binarySearch(vector<int> &arr, int x){
+int binarySearch(vector<int> &arr, int x, int& comparsions){
+
+    comparsion = 0;
+
     sort(arr.begin(), arr.end());
 
+    // Start timer
     auto start = high_resolution_clock::now();
 
     int low = 0;
     int high = arr.size() - 1;
     int result_index = -1;
 
+    // Binary search loop to change mid and high
     while(low <= high)
     {
+        comparsions++;
         int mid = low + (high - low) / 2;
 
         if(arr[mid] == x)
@@ -58,6 +158,7 @@ int binarySearch(vector<int> &arr, int x){
 
         if(arr[mid] < x)
         {
+            
             low = mid + 1;
         }
         
@@ -67,13 +168,14 @@ int binarySearch(vector<int> &arr, int x){
         }
     }
 
+    // End timer
     auto end = high_resolution_clock::now();
 
-    auto duration = duration_cast<microseconds>(end - start);
-    cout << duration.count();
+    // Calculate total time
+    duration<double, std::micro> duration = (end - start);
+    //cout << fixed << setprecision(3) << "binary duration = " << duration.count() << " us ";
 
-    return result_index;
+    return duration.count();
 
 
 }
-
