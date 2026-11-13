@@ -119,11 +119,9 @@ int linearSearch(vector<int> &arr, int x, int& comparisons, double& searchTime){
     for(int i = 0; i < arr.size(); i++)
     {
         comparisons++;
-
         if(arr[i] == x)
         //cout << i+1 << " comparisons" << endl;
         return_index = i;
-
     }
     //cout << arr.size(); << " comparisons" << endl;
 
@@ -148,9 +146,6 @@ int binarySearch(vector<int> &arr, int x, int& comparisons, double& sortingTime,
     auto endsort = high_resolution_clock::now(); //end timer
     duration<double, std::micro> sortTime = (endsort - startsort);
     sortingTime = sortTime.count();
-
-
-
 
     // Start timer
     auto start = high_resolution_clock::now();
