@@ -8,8 +8,8 @@
 using namespace std;
 using namespace std::chrono;
 
-double linearSearch(vector<int>& arr, int x, int& comparisons);
-double binarySearch(vector<int> &arr, int x, int& comparisons, double& sortingTime);
+int linearSearch(vector<int>& arr, int x, int& comparisons, double& searchTime);
+int binarySearch(vector<int> &arr, int x, int& comparisons, double& sortingTime, double& searchTime);
 void fillVec(vector<int>& arr);
 void linearHeader();
 void binaryHeader();
@@ -37,8 +37,10 @@ int main() {
         std::vector<int> vec(vecSize);
         fillVec(vec);
         vec[vecSize-1] = 10;
-        double runTime = linearSearch(vec, key, comparisons);
+        double runTime = 0;
+        int keyLocation = linearSearch(vec, key, comparisons, runTime);
         cout << "search time for run #"<< i << ": " << runTime << " us " << endl;
+        //cout << "key location: " << keyLocation << endl;
         linearTotal += runTime;
     }
     double linearAvg = linearTotal/5;
@@ -54,8 +56,10 @@ int main() {
         std::vector<int> vec(vecSize);
         fillVec(vec);
         vec[vecSize-1] = 10;
-        double runTime = binarySearch(vec, key, comparisons, sortingTime);
+        double runTime = 0;
+        int keyLocation = binarySearch(vec, key, comparisons, sortingTime, runTime);
         cout << "search time for run #"<< i << ": " << runTime << " us " << endl;
+        //cout << "key location: " << keyLocation << endl;
         binaryTotal += runTime;
     }
     double binaryAvg = binaryTotal/5;
@@ -102,7 +106,7 @@ void binaryHeader(){
     cout << "Input Size = " << vecSize << endl;
 }
 
-double linearSearch(vector<int> &arr, int x, int& comparisons){
+int linearSearch(vector<int> &arr, int x, int& comparisons, double& searchTime){
 
     comparisons = 0;
 
@@ -128,13 +132,14 @@ double linearSearch(vector<int> &arr, int x, int& comparisons){
 
     // Calculate total time
     duration<double, std::micro> duration = (end - start);
+    searchTime = duration.count();
     //cout << fixed << duration.count() << " us ";
 
-    return duration.count();
+    return return_index;
 
 }
 
-double binarySearch(vector<int> &arr, int x, int& comparisons, double& sortingTime){
+int binarySearch(vector<int> &arr, int x, int& comparisons, double& sortingTime, double& searchTime){
 
     comparisons = 0;
 
@@ -183,9 +188,10 @@ double binarySearch(vector<int> &arr, int x, int& comparisons, double& sortingTi
 
     // Calculate total time
     duration<double, std::micro> duration = (end - start);
+    searchTime = duration.count();
     //cout << fixed << setprecision(3) << "binary duration = " << duration.count() << " us ";
 
-    return duration.count();
+    return result_index;
 
 
 }
