@@ -1,3 +1,4 @@
+//Elliot Gilbert and Owen Willoby Project 2 Code.
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -187,6 +188,4 @@ int binarySearch(vector<int> &arr, int x, int& comparisons, double& sortingTime,
     //cout << fixed << setprecision(3) << "binary duration = " << duration.count() << " us ";
 
     return result_index;
-
-
 }
